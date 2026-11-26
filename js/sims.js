@@ -30,8 +30,9 @@
       '<filter id="' + id + 'sh" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#13261f" flood-opacity=".16"/></filter>';
   }
   function range(name, label, min, max, step, val, unit) {
-    return '<label class="sx-range"><span class="sx-range__top"><span>' + esc(label) + '</span><output data-o="' + name + '"></output></span>' +
-      '<input type="range" data-r="' + name + '" min="' + min + '" max="' + max + '" step="' + step + '" value="' + val + '" aria-label="' + esc(label) + '"' + (unit ? ' data-unit="' + esc(unit) + '"' : '') + '></label>';
+    var rid = 'sxr' + (++uid);
+    return '<div class="sx-range"><span class="sx-range__top"><label for="' + rid + '">' + esc(label) + '</label><output data-o="' + name + '" for="' + rid + '"></output></span>' +
+      '<input type="range" id="' + rid + '" data-r="' + name + '" min="' + min + '" max="' + max + '" step="' + step + '" value="' + val + '"' + (unit ? ' data-unit="' + esc(unit) + '"' : '') + '></div>';
   }
   /* one loop for everything that moves, paused off screen and in a hidden tab */
   function animate(box, step) {
@@ -60,6 +61,8 @@
   }
   function frame(box, cls) {
     box.classList.add('sx');
+    /* transitions start only after the first two frames, so a simulation appears at rest, not animating in */
+    requestAnimationFrame(function () { requestAnimationFrame(function () { box.classList.add('is-ready'); }); });
     if (cls) box.classList.add(cls);
     if (box.parentNode && box.parentNode.classList) box.parentNode.classList.add('sx-host');
   }

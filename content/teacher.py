@@ -88,19 +88,19 @@ SECTIONS = [
 ]
 
 PRIVACY = [
-    ('h3', 'What is saved'),
+    ('h2', 'What is saved'),
     ('list', [
         'Your section and full name, and your PIN stored only as a scrambled code (a hash).',
         'Your answers, your predictions, what you wrote, which parts you finished, and when you started and last worked.']),
-    ('h3', 'Where it is kept'),
+    ('h2', 'Where it is kept'),
     ('list', [
         'On your device, in the browser, so you can continue where you stopped, even without internet.',
         'If you sign in, also in your teacher’s Google Sheet. BioInnovate sends your work nowhere else: there is no other database, no advertising, and no tracking. The fonts and pictures come with the module.']),
-    ('h3', 'Who can see it'),
+    ('h2', 'Who can see it'),
     ('list', [
         'Your teacher, who uses it to see how much of the module each learner completed, as part of a study on this module.',
         'Anyone using the same device while you are signed in. On a shared device, sign out when you finish. Signing out removes your work from that device after it is saved online.']),
-    ('h3', 'Your choices'),
+    ('h2', 'Your choices'),
     ('list', [
         'You can use the module without signing in. Your work then stays on your device only.',
         'You can ask your teacher to correct or delete your row in the Sheet.']),

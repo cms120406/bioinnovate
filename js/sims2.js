@@ -264,9 +264,9 @@
       '<div class="ex" aria-hidden="true">' + D.map(function (d) {
         return '<div class="ex-row"><p class="ex-n">' + d[0] + '</p><div class="ex-bars">' + line(d[1], 'rest') + line(d[2], 'ex') + '</div></div>';
       }).join('') + '<div class="ex-row ex-total"><p class="ex-n">Total</p><p class="ex-n">5,800 at rest · 17,500 in maximal exercise</p></div></div>' +
-      '<table class="visually-hidden"><caption>Blood flow to each organ in mL per minute, at rest and in maximal exercise</caption><thead><tr><th scope="col">Organ</th><th scope="col">At rest</th><th scope="col">Maximal exercise</th></tr></thead><tbody>' +
+      '<div class="visually-hidden"><table><caption>Blood flow to each organ in mL per minute, at rest and in maximal exercise</caption><thead><tr><th scope="col">Organ</th><th scope="col">At rest</th><th scope="col">Maximal exercise</th></tr></thead><tbody>' +
       D.map(function (d) { return '<tr><th scope="row">' + d[0] + '</th><td>' + fmt(d[1]) + '</td><td>' + fmt(d[2]) + '</td></tr>'; }).join('') +
-      '<tr><th scope="row">Total</th><td>5,800</td><td>17,500</td></tr></tbody></table>';
+      '<tr><th scope="row">Total</th><td>5,800</td><td>17,500</td></tr></tbody></table></div>';
   };
 
   /* ================================================================ Lesson 4 */
@@ -360,7 +360,7 @@
       var tapping = zone === 1 && P > 1;
       hear.textContent = tapping ? (tapT < 0.3 ? 'tap!' : 'tap … tap …') : 'silent';
       hear.classList.toggle('is-tap', tapping && tapT < 0.3);
-      rings.forEach(function (r, i) { var t = tapT - i * 0.12; r.style.opacity = tapping && t >= 0 && t < 0.5 ? (1 - t / 0.5).toFixed(2) : '0'; r.setAttribute('r', (20 + Math.max(0, t) * 70).toFixed(1)); });
+      rings.forEach(function (r, i) { var t = tapT - i * 0.12, on = tapping && t >= 0 && t < 0.5; r.style.opacity = on ? (1 - t / 0.5).toFixed(2) : '0'; r.setAttribute('r', on ? (20 + t * 70).toFixed(1) : '20'); });
     }
     readout();
     animate(box, function (dt) { draw(dt); });
@@ -460,7 +460,7 @@
     frame(box, 'sx-baro');
     box.innerHTML = seg('Start with', [['up', 'Blood pressure rises'], ['down', 'Blood pressure falls']], 'up') +
       '<div class="br-loop">' + BOX.map(function (b, i) {
-        return '<button type="button" class="br-box br-box--' + i + '" data-i="' + i + '"><span class="br-n">' + (i + 1) + '</span><span class="br-t">' + b[0] + '</span><span class="br-s"></span></button>';
+        return '<button type="button" class="br-box br-box--' + i + '" data-i="' + i + '"><span class="br-n">' + (i + 1) + '</span><span class="br-tx"><span class="br-t">' + b[0] + '</span><span class="br-s"></span></span></button>';
       }).join('') +
         '<div class="br-mid" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="46" class="br-ring"/><path class="br-arc" d="M60 14 A46 46 0 1 1 14 60"/><path class="br-up" d="M60 38 L78 64 H66 V84 H54 V64 H42 Z"/></svg><p>Negative feedback: the result reverses the change.</p></div>' +
       '</div>' +

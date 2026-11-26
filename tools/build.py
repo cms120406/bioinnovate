@@ -87,8 +87,8 @@ def table(b):
 def guide(L, sim, qs):
     if not qs: return ''
     items = ''.join(
-        ('<li class="try" data-save="l%d.try.%s.%d"><p>%s</p><textarea rows="2" aria-label="Your answer" placeholder="Type your answer"></textarea>'
-         '<details><summary>Compare with a model answer</summary><p>%s</p></details></li>') % (L, sim, i, md(q), md(a)) for i, (q, a) in enumerate(qs))
+        ('<li class="try" data-save="l%d.try.%s.%d"><label class="try__q" for="try-%d-%s-%d">%s</label><textarea id="try-%d-%s-%d" rows="2" placeholder="Type your answer"></textarea>'
+         '<details><summary>Compare with a model answer</summary><p>%s</p></details></li>') % (L, sim, i, L, sim, i, md(q), L, sim, i, md(a)) for i, (q, a) in enumerate(qs))
     return '<div class="tries"><p class="tries__k">Try this</p><ol>%s</ol></div>' % items
 
 def sim(L, b):
@@ -116,8 +116,8 @@ def selfcheck(L, items):
     return '<ol class="selfcheck">%s</ol>' % rows
 
 def task(L, b):
-    return ('<div class="task" data-track="l%d.task.%s"><p class="task__k">%s</p>%s<textarea rows="%d" aria-label="%s" placeholder="Write here"></textarea>'
-            '<p class="task__saved" aria-live="polite"></p></div>') % (L, b['id'], md(b['title']), ''.join('<p>%s</p>' % md(p) for p in b['ps']), b.get('rows', 4), attr(b['title']))
+    return ('<div class="task" data-track="l%d.task.%s"><p class="task__k">%s</p>%s<label class="task__q" for="task-%d-%s">Your answer</label><textarea id="task-%d-%s" rows="%d" placeholder="Write here"></textarea>'
+            '<p class="task__saved" aria-live="polite"></p></div>') % (L, b['id'], md(b['title']), ''.join('<p>%s</p>' % md(p) for p in b['ps']), L, b['id'], L, b['id'], b.get('rows', 4))
 
 def block(L, b):
     t = b[0] if isinstance(b, tuple) else b['type']
@@ -125,6 +125,7 @@ def block(L, b):
         if t == 'p': return '<p>%s</p>' % md(b[1])
         if t == 'lead': return '<p class="lead">%s</p>' % md(b[1])
         if t == 'h3': return '<h3>%s</h3>' % md(b[1])
+        if t == 'h2': return '<h2 class="doc-h2">%s</h2>' % md(b[1])
         if t == 'list': return '<ul class="bul">%s</ul>' % ''.join('<li>%s</li>' % md(x) for x in b[1])
         if t == 'steps': return '<ol class="num">%s</ol>' % ''.join('<li>%s</li>' % md(x) for x in b[1])
         if t == 'formula': return '<p class="formula">%s</p>' % md(b[1])
@@ -197,7 +198,7 @@ def footer():
     return ('<footer class="lfoot"><div class="wrap lfoot__in"><p><a class="nav__logo" href="index.html"><span class="mark" data-mark="ring" aria-hidden="true"></span>BioInnovate</a></p>'
             '<p>A self-learning module on the circulatory system for General Biology 2, by Cristina M. Sabal, Tarlac Agricultural University.</p>'
             '<p class="lfoot__links"><a href="glossary.html">Glossary</a><a href="references.html">References</a><a href="progress.html">My progress</a><a href="teacher.html">Teacher’s guide</a></p>'
-            '<p class="lfoot__small">Science content adapted from OpenStax Anatomy and Physiology 2e and Biology 2e (CC BY 4.0). Your work is saved on this device.</p></div></footer>')
+            '<p class="lfoot__small">Science content adapted from OpenStax (CC BY 4.0).</p></div></footer>')
 
 SCRIPTS = ('<script type="module" src="assets/system.js"></script>\n<script src="js/config.js"></script>\n<script src="js/glossary.js"></script>\n<script src="js/manifest.js"></script>\n'
            '<script src="js/merge.js"></script>\n<script src="js/store.js"></script>\n<script src="js/sync.js"></script>\n<script src="js/site.js"></script>\n'
@@ -257,17 +258,17 @@ def progress_page():
     cards = ''
     for i, (h, t, sub) in enumerate(NAV_LESSONS):
         L = i + 1
-        cards += ('<article class="prog-card" data-lesson="%d"><p class="prog-card__k">Lesson %d</p><h2>%s</h2>'
+        cards += ('<article class="prog-card" data-lesson="%d"><p class="prog-card__k">Lesson %d</p><h3>%s</h3>'
                   '<div class="prog-bar"><i></i></div><p class="prog-card__pct"><b>0%%</b> done</p>'
                   '<ol class="prog-parts" aria-label="The nine parts"></ol><p class="prog-card__score"></p>'
                   '<a class="link prog-card__go" href="%s">Open Lesson %d</a></article>') % (L, L, html.escape(t), h, L)
     out += ('<main id="main" class="doc wrap prog"><p class="lp-head__k"><span class="dot" aria-hidden="true"></span>BioInnovate</p><h1>My progress</h1>'
             '<p class="lp-sync" hidden></p>'
-            '<div class="prog-top"><div class="prog-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" class="prog-ring__bg"/>'
+            '<div class="prog-sum"><div class="prog-top"><div class="prog-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" class="prog-ring__bg"/>'
             '<circle cx="60" cy="60" r="52" class="prog-ring__fg"/></svg><p><b id="prog-all">0%%</b><span>of the module</span></p></div>'
             '<dl class="prog-facts"><div><dt>The 75%% mark</dt><dd class="prog-meets">Not yet</dd></div><div><dt>Right on the first try</dt><dd class="prog-first">0 questions</dd></div>'
-            '<div><dt>Started</dt><dd class="prog-start">Not yet</dd></div></dl></div>'
-            '<div class="prog-cards">%s</div>'
+            '<div><dt>Started</dt><dd class="prog-start">Not yet</dd></div></dl></div></div>'
+            '<h2 class="prog-lessons-h">Lesson by lesson</h2><div class="prog-cards grid">%s</div>'
             '<div class="prog-how"><h2>What counts</h2><p>Each lesson counts every part you read to the end, every question you answer, every prediction and common idea you check, '
             'each simulation you use, the activity, the written task and your self-check. Your answers to the “Try this” questions under the simulations are kept but do not count. '
             'Your teacher sees the same numbers.</p></div></main>') % cards
@@ -354,15 +355,15 @@ def blocks_html(blocks):
 def teacher_page():
     T = load('teacher')
     toc = ''.join('<li><a href="#%s">%s</a></li>' % (sid, html.escape(t)) for sid, t, _ in T.SECTIONS)
-    body = ''.join('<section class="doc-sec" id="%s" aria-labelledby="%s-h"><h2 id="%s-h">%s</h2>%s</section>' % (sid, sid, sid, html.escape(t), blocks_html(bl)) for sid, t, bl in T.SECTIONS)
+    body = ''.join('<div class="doc-sec" id="%s"><h2>%s</h2>%s</div>' % (sid, html.escape(t), blocks_html(bl)) for sid, t, bl in T.SECTIONS)
     tries = ''.join(tries_key(L) for L in (1, 2, 3, 4))
     keys = ''.join(answer_key(L) for L in (1, 2, 3, 4))
-    body += ('<section class="doc-sec" id="tries" aria-labelledby="tries-h"><h2 id="tries-h">What to expect from the “Try this” questions</h2>'
+    body += ('<div class="doc-sec" id="tries"><h2>What to expect from the “Try this” questions</h2>'
              '<p>Learners type their own answers under each simulation and can open a model answer. These are the model answers.</p>'
-             '<figure class="tbl"><div class="tbl__scroll"><table><thead><tr><th scope="col">Simulation</th><th scope="col">Model answers</th></tr></thead><tbody>%s</tbody></table></div></figure></section>'
-             '<section class="doc-sec" id="key" aria-labelledby="key-h"><h2 id="key-h">Answer key</h2>'
+             '<figure class="tbl"><div class="tbl__scroll"><table><thead><tr><th scope="col">Simulation</th><th scope="col">Model answers</th></tr></thead><tbody>%s</tbody></table></div></figure></div>'
+             '<div class="doc-sec" id="key"><h2>Answer key</h2>'
              '<p>The module shows the answer and an explanation after each question, except in What I Know, which only says where each idea is taught. '
-             'Like the answer key at the back of a self-learning module, this key is also printed at the end of each learner’s workbook.</p>%s</section>') % (tries, keys)
+             'Like the answer key at the back of a self-learning module, this key is also printed at the end of each learner’s workbook.</p>%s</div>') % (tries, keys)
     inner = ('<p class="doc__lead">BioInnovate is a self-learning module: the learner does the work and the teacher facilitates. This guide covers the session plan, '
              'facilitation, online saving and the Google Sheet, and the answer key.</p><nav class="doc-toc" aria-label="On this page"><ol>%s<li><a href="#tries">What to expect from the “Try this” questions</a></li><li><a href="#key">Answer key</a></li></ol></nav>%s') % (toc, body)
     return doc_page('teacher.html', 'Teacher’s guide', 'How to run BioInnovate in eight sessions, how online saving works, and the answer key.', inner)
@@ -373,8 +374,8 @@ def privacy_page():
                     '<p class="doc__lead">What BioInnovate saves, where it is kept, and who can see it.</p>' + blocks_html(T.PRIVACY), current='privacy.html')
 
 def print_page():
-    cards = ''.join(('<li class="pr-card"><p class="prog-card__k">Lesson %d</p><h2>%s</h2><p class="btn-row">'
-                     '<a class="btn btn--primary" href="lesson-%d.html?print=blank">Blank workbook</a><a class="btn btn--secondary" href="lesson-%d.html?print=mine">With my answers</a></p></li>')
+    cards = ''.join(('<li class="pr-card"><p class="prog-card__k">Lesson %d</p><h2>%s</h2><p class="pr-links">'
+                     '<a class="link" href="lesson-%d.html?print=blank">Print a blank workbook</a><a class="link" href="lesson-%d.html?print=mine">Print with my answers</a></p></li>')
                     % (i + 1, html.escape(t), i + 1, i + 1) for i, (h, t, sub) in enumerate(NAV_LESSONS))
     inner = ('<p class="doc__lead">Print a lesson as a workbook, or save it as a PDF from the print window. A blank workbook has empty boxes for writing and the answer key at the end. '
              '“With my answers” prints the answers saved on this device.</p><ol class="pr-cards">%s</ol>'

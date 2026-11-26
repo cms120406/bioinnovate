@@ -109,13 +109,13 @@
 .bh-info p { margin: 0; }
 .bh-info__name { font-size: 16px; line-height: 24px; font-weight: 500; }
 .bh-info__name:empty { display: none; }
-.bh-info__text { font-size: 16px; line-height: 24px; color: var(--bh-muted); max-width: 62ch; }
+.bh-info__text { font-size: 16px; line-height: 24px; color: var(--bh-ink); max-width: 62ch; }
 
 /* controls: the system's secondary button look, on the frame */
 .bh-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .bh-btn, .bh-chip {
   display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px;
-  border: 1px solid rgba(19, 38, 31, .16); border-radius: 999px; background: #fff; color: var(--bh-ink);
+  border: 1px solid rgba(19, 38, 31, .22); border-radius: 999px; background: var(--p-bg, #f9fbfa); color: var(--bh-ink);
   font: 500 15px/1 var(--font-text, "Figtree", sans-serif); white-space: nowrap; cursor: pointer;
   transition: background-color 150ms cubic-bezier(.2, .8, .2, 1), border-color 150ms cubic-bezier(.2, .8, .2, 1), transform 90ms cubic-bezier(.2, .8, .2, 1);
 }
