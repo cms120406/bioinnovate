@@ -406,7 +406,7 @@ html.presenting .part__body > .wide, html.presenting .reading > .wide { max-widt
 .doc-toc { margin: var(--s-6) 0 var(--s-7); padding: var(--s-5); border-radius: var(--r-lg); background: var(--note-bg); }
 .doc-toc ol { padding-left: 1.3em; columns: 2; column-gap: var(--s-7); }
 .doc-toc li { margin: 2px 0; break-inside: avoid; }
-.doc-sec { margin-top: var(--s-8); display: grid; gap: var(--s-4); scroll-margin-top: calc(var(--nav) + var(--s-5)); }
+.doc-sec { margin-top: var(--s-8); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4); scroll-margin-top: calc(var(--nav) + var(--s-5)); }
 .doc-sec h2 { font-size: var(--t-h2); }
 .doc-sec h3 { font-size: var(--t-h3); margin-top: var(--s-3); }
 .doc-sec p, .doc-sec li { font-size: 17px; line-height: 1.6; max-width: 72ch; }
