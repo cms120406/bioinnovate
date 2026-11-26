@@ -7,7 +7,7 @@
   'use strict';
   var S = window.BioStore, URL = ((window.BIO_CONFIG || {}).saveUrl || '').trim();
   var K_SAVED = 'bioinnovate.saved', K_SECT = 'bioinnovate.sections';
-  var state = 'idle', dirty = false, busy = false, timer = null, wait = 8000, lastOk = +ls(K_SAVED) || 0, note = '';
+  var state = 'idle', dirty = false, busy = false, timer = null, wait = 8000, lastOk = +ls(K_SAVED) || 0, note = '', again = false;
 
   function ls(k, v) {
     try { if (v === undefined) return window.localStorage.getItem(k); window.localStorage.setItem(k, v); } catch (e) { return null; }
@@ -36,9 +36,12 @@
         lastOk = r.savedAt || Date.now(); ls(K_SAVED, String(lastOk));
         S.absorb(r.data);
         if (doneCount() > before) offerReload();
-        wait = 8000;
+        wait = 8000; again = false;
         state = dirty ? 'pending' : 'saved';
         if (dirty) schedule(4000);
+      } else if (r && r.error === 'signin_again' && !again) {
+        /* a row added a moment ago can take a few seconds to show up for the next request: try once more first */
+        again = true; dirty = true; state = 'pending'; timer = null; schedule(5000);
       } else if (r && r.error === 'signin_again') {
         state = 'signin'; dirty = true;
       } else if (r && r.error === 'too_big') {
