@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-label="Blood's double loop: from the heart to the lungs and back, then from the heart to the body and back">
+<defs>
+<radialGradient id="l3h" cx="40%" cy="34%" r="70%"><stop offset="0" stop-color="#f5c7ba"/><stop offset=".6" stop-color="#e69b8b"/><stop offset="1" stop-color="#c9695c"/></radialGradient>
+<radialGradient id="l3l" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#ffe3dc"/><stop offset="1" stop-color="#f0b9ad"/></radialGradient>
+<linearGradient id="l3b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef7f2"/><stop offset="1" stop-color="#c7e3d4"/></linearGradient>
+<marker id="l3ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#fff"/></marker>
+</defs>
+<path d="M150 88 C120 76 112 46 132 30" fill="none" stroke="#22477f" stroke-width="15" stroke-linecap="round"/>
+<path d="M150 88 C120 76 112 46 132 30" fill="none" stroke="#3767b3" stroke-width="11" stroke-linecap="round"/>
+<path d="M188 30 C208 46 200 76 170 88" fill="none" stroke="#9c2229" stroke-width="15" stroke-linecap="round"/>
+<path d="M188 30 C208 46 200 76 170 88" fill="none" stroke="#d23a3f" stroke-width="11" stroke-linecap="round"/>
+<path d="M172 114 C214 124 262 136 252 168 C246 182 228 184 216 182" fill="none" stroke="#9c2229" stroke-width="15" stroke-linecap="round"/>
+<path d="M172 114 C214 124 262 136 252 168 C246 182 228 184 216 182" fill="none" stroke="#d23a3f" stroke-width="11" stroke-linecap="round"/>
+<path d="M104 182 C92 184 74 182 68 168 C58 136 106 124 148 114" fill="none" stroke="#22477f" stroke-width="15" stroke-linecap="round"/>
+<path d="M104 182 C92 184 74 182 68 168 C58 136 106 124 148 114" fill="none" stroke="#3767b3" stroke-width="11" stroke-linecap="round"/>
+<path d="M128 58 L127 52" fill="none" stroke="#fff" stroke-width="2" marker-end="url(#l3ar)"/>
+<path d="M195 50 L194 57" fill="none" stroke="#fff" stroke-width="2" marker-end="url(#l3ar)"/>
+<path d="M236 136 L243 142" fill="none" stroke="#fff" stroke-width="2" marker-end="url(#l3ar)"/>
+<path d="M82 142 L90 137" fill="none" stroke="#fff" stroke-width="2" marker-end="url(#l3ar)"/>
+<path d="M120 30 C118 14 140 8 154 16 L156 34 C150 46 128 46 120 30 Z" fill="url(#l3l)" stroke="#d99a8c"/>
+<path d="M200 30 C202 14 180 8 166 16 L164 34 C170 46 192 46 200 30 Z" fill="url(#l3l)" stroke="#d99a8c"/>
+<rect x="104" y="170" width="112" height="24" rx="12" fill="url(#l3b)" stroke="#a7cdb9"/>
+<circle cx="160" cy="101" r="22" fill="url(#l3h)" stroke="rgba(132,46,36,.5)" stroke-width="1.5"/>
+<path d="M150 92 a9 9 0 0 0 0 18 Z" fill="#3767b3"/>
+<path d="M170 92 a9 9 0 0 1 0 18 Z" fill="#d23a3f"/>
+</svg>

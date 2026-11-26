@@ -1,0 +1,172 @@
+/* BioInnovate simulations: the frame, its controls and the heart's colours.
+   Blood colours live here and only here (the page never uses them). The default is the diagram code
+   (red for oxygen-rich, blue for oxygen-poor); "Real blood colors" switches to bright and dark red. */
+
+.bh {
+  --bh-rich: #d23a3f; --bh-rich-hi: #f07a78; --bh-rich-lo: #9c2229;
+  --bh-poor: #3767b3; --bh-poor-hi: #78a2dd; --bh-poor-lo: #22477f;
+  --bh-ink: var(--p-ink, #13261f);
+  --bh-muted: var(--p-muted, #5f6f68);
+  --bh-panel: var(--p-surface, #e2f3ea);
+  position: relative;
+  display: flex; flex-direction: column; gap: 12px;
+  width: 100%; height: 100%; min-height: 0;
+  padding: 20px 20px 16px;
+  background: radial-gradient(120% 90% at 50% 38%, #eef9f3 0%, var(--bh-panel) 62%);
+  color: var(--bh-ink);
+  font-family: var(--font-text, "Figtree", system-ui, sans-serif);
+  -webkit-tap-highlight-color: transparent;
+}
+.bh.bh--real {
+  --bh-rich: #e2312c; --bh-rich-hi: #ff7262; --bh-rich-lo: #a51b18;
+  --bh-poor: #7d1d2b; --bh-poor-hi: #a8404f; --bh-poor-lo: #4c0e18;
+}
+
+/* the line above the drawing: the phase, and the colour key */
+.bh-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.bh-phase {
+  display: inline-flex; align-items: center; gap: 8px; margin: 0;
+  min-height: 32px; padding: 4px 14px; border-radius: 999px;
+  background: rgba(255, 255, 255, .72); font-size: 14px; line-height: 20px; font-weight: 500;
+}
+.bh-phase__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--p-accent, #1f6b4f); flex: none; }
+.bh--paused .bh-phase__dot { background: var(--bh-muted); }
+.bh-key { display: flex; gap: 16px; margin: 0; font-size: 14px; line-height: 20px; color: var(--bh-muted); }
+.bh-key span { display: inline-flex; align-items: center; gap: 6px; }
+.bh-sw { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.bh-sw--rich { background: var(--bh-rich); }
+.bh-sw--poor { background: var(--bh-poor); }
+
+/* the drawing keeps its shape inside whatever room the frame has (heart.js sizes .bh-canvas) */
+.bh-stage { flex: 1 1 auto; min-height: 0; display: grid; place-items: center; }
+.bh-canvas { position: relative; max-width: 100%; }
+.bh[data-mode="hero"] .bh-canvas { width: 100% !important; height: 100% !important; }
+.bh-canvas > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; display: block; }
+
+/* the heart */
+.bh-tube path { fill: none; stroke-linecap: butt; stroke-linejoin: round; }
+.bh-rich .bh-tube__edge { stroke: var(--bh-rich-lo); }
+.bh-rich .bh-tube__body { stroke: var(--bh-rich); }
+.bh-rich .bh-tube__shine { stroke: var(--bh-rich-hi); opacity: .55; }
+.bh-poor .bh-tube__edge { stroke: var(--bh-poor-lo); }
+.bh-poor .bh-tube__body { stroke: var(--bh-poor); }
+.bh-poor .bh-tube__shine { stroke: var(--bh-poor-hi); opacity: .55; }
+.bh-rich .bh-tube__shade { stroke: var(--bh-rich-lo); opacity: .5; }
+.bh-poor .bh-tube__shade { stroke: var(--bh-poor-lo); opacity: .5; }
+.bh-cut.bh-rich { fill: var(--bh-rich-lo); stroke: var(--bh-rich); stroke-width: 2.5; }
+.bh-cut.bh-poor { fill: var(--bh-poor-lo); stroke: var(--bh-poor); stroke-width: 2.5; }
+.bh-side { fill: #8c3a33; }
+.bh-wall { stroke: rgba(132, 46, 36, .55); stroke-width: 1.5; }
+.bh-fibres { fill: none; stroke: rgba(255, 236, 228, .22); stroke-width: 7; stroke-linecap: round; }
+.bh-pool { stroke: none; }
+.bh-pool__rim { fill: none; stroke: rgba(70, 12, 14, .32); stroke-width: 2.5; }
+.bh-pap { fill: #dd8b7c; stroke: rgba(132, 46, 36, .45); stroke-width: 1.2; }
+.bh-fat { fill: #f1d68a; stroke: #d9b660; stroke-width: .8; }
+.bh-leaf { fill: #fcefe7; stroke: #b98273; stroke-width: 1.2; }
+.bh-chord { stroke: #f8e5da; stroke-width: 1.3; opacity: .9; }
+.bh-rbc { stroke-width: .9; }
+.bh-rbc__dimple { fill: #fff; opacity: .28; }
+.bh-hit { fill: rgba(0, 0, 0, 0); }
+.bh [data-part] { cursor: pointer; }
+
+/* a part that is picked */
+.bh .is-on .bh-pool__rim { stroke: #fff; stroke-width: 4; }
+.bh .is-on .bh-tube__edge { stroke: #fff; }
+.bh .is-on .bh-leaf, .bh .is-on.bh-leaf { stroke: var(--bh-ink); stroke-width: 2; }
+.bh .bh-hit.is-on { fill: rgba(255, 255, 255, .3); }
+
+/* labels: leader lines in the drawing, the names as buttons over it (lesson mode) */
+.bh-leader { fill: none; stroke: var(--bh-ink); stroke-opacity: .45; stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.bh-dot { fill: #fff; stroke: var(--bh-ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.bh-leaders { display: none; }
+.bh--labels .bh-leaders { display: inline; }
+.bh--labels.bh--narrow .bh-leader { display: none; }
+.bh-tags { position: absolute; inset: 0; pointer-events: none; display: none; }
+.bh--labels .bh-tags { display: block; }
+.bh-tag {
+  position: absolute; left: var(--x); top: var(--y); pointer-events: auto;
+  display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 4px 12px 4px 6px;
+  border: 1px solid rgba(19, 38, 31, .14); border-radius: 999px; background: #fff; color: var(--bh-ink);
+  font: 500 14px/20px var(--font-text, "Figtree", sans-serif); white-space: nowrap; cursor: pointer;
+  transform: translate(-100%, -50%);
+}
+.bh-tag[data-side="l"] { transform: translate(0, -50%); }
+.bh-tag[data-side="c"] { transform: translate(-50%, -50%); }
+.bh-tag__n {
+  display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--bh-panel); font-size: 13px; line-height: 1;
+}
+.bh-tag.is-on { background: var(--bh-ink); color: #fff; border-color: var(--bh-ink); }
+.bh-tag.is-on .bh-tag__n { background: rgba(255, 255, 255, .18); }
+/* narrow: only the numbers, on the parts themselves */
+.bh--narrow .bh-tag { left: var(--px); top: var(--py); transform: translate(-50%, -50%); padding: 0; min-height: 0; border: 0; background: none; }
+.bh--narrow .bh-tag__name { display: none; }
+.bh--narrow .bh-tag__n { width: 24px; height: 24px; background: #fff; box-shadow: 0 0 0 1.5px var(--bh-ink); }
+.bh--narrow .bh-tag.is-on .bh-tag__n { background: var(--bh-ink); color: #fff; }
+
+/* what the picked part is and does */
+.bh-info { min-height: 72px; }
+.bh-info p { margin: 0; }
+.bh-info__name { font-size: 16px; line-height: 24px; font-weight: 500; }
+.bh-info__name:empty { display: none; }
+.bh-info__text { font-size: 16px; line-height: 24px; color: var(--bh-muted); max-width: 62ch; }
+
+/* controls: the system's secondary button look, on the frame */
+.bh-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.bh-btn, .bh-chip {
+  display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px;
+  border: 1px solid rgba(19, 38, 31, .16); border-radius: 999px; background: #fff; color: var(--bh-ink);
+  font: 500 15px/1 var(--font-text, "Figtree", sans-serif); white-space: nowrap; cursor: pointer;
+  transition: background-color 150ms cubic-bezier(.2, .8, .2, 1), border-color 150ms cubic-bezier(.2, .8, .2, 1), transform 90ms cubic-bezier(.2, .8, .2, 1);
+}
+.bh-btn { padding-left: 14px; }
+@media (hover: hover) and (pointer: fine) {
+  .bh-btn:hover, .bh-chip:hover { background: #f4faf7; border-color: rgba(19, 38, 31, .32); transform: translateY(-1px); }
+}
+.bh-btn:active, .bh-chip:active { transform: translateY(1px) scale(.985); }
+.bh-btn:focus-visible, .bh-chip:focus-visible, .bh-tag:focus-visible { outline: 2px solid var(--p-accent, #1f6b4f); outline-offset: 2px; }
+.bh-ico { width: 16px; height: 16px; fill: currentColor; }
+.bh-ico--play { display: none; }
+.bh--paused .bh-ico--play { display: block; }
+.bh--paused .bh-ico--pause { display: none; }
+.bh-chip__box {
+  width: 18px; height: 18px; border-radius: 6px; border: 1.5px solid rgba(19, 38, 31, .4); flex: none;
+  display: inline-grid; place-items: center; background: #fff;
+}
+.bh-chip[aria-pressed="true"] .bh-chip__box { background: var(--p-accent, #1f6b4f); border-color: var(--p-accent, #1f6b4f); }
+.bh-chip[aria-pressed="true"] .bh-chip__box::after {
+  content: ""; width: 9px; height: 5px; border: 2px solid #fff; border-top: 0; border-right: 0;
+  transform: translateY(-1px) rotate(-45deg);
+}
+.bh-count { margin: 0 0 0 auto; font-size: 14px; color: var(--bh-muted); }
+
+/* the hero: a quieter frame */
+
+/* a small frame (a phone's hero, a narrow column): the drawing gets the room. The phase line, the key
+   and the slow-motion switch step aside; the picked part's note lies over the top of the drawing */
+.bh-host { container-type: inline-size; }
+.bh-s { display: none; }
+@container (max-width: 460px) {
+  .bh { padding: 10px; gap: 0; }
+  .bh-top { display: none; }
+  .bh-l { display: none; }
+  .bh-s { display: inline; }
+  .bh-controls { position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 2; justify-content: space-between; pointer-events: none; }
+  .bh-controls > * { pointer-events: auto; }
+  .bh-chip[data-toggle="slow"] { display: none; }
+  .bh-btn, .bh-chip { padding: 0 14px; font-size: 14px; gap: 6px; box-shadow: 0 2px 10px rgba(19, 38, 31, .08); }
+  .bh-btn { order: 2; width: 44px; justify-content: center; padding: 0; }
+  .bh-btn .bh-btn__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .bh-stage { padding-bottom: 40px; }
+  .bh-info { display: none; }
+  .bh.bh--picked .bh-info {
+    display: block; position: absolute; left: 10px; right: 10px; top: 10px; z-index: 3; min-height: 0;
+    padding: 10px 14px; border-radius: 16px; background: rgba(255, 255, 255, .95); box-shadow: 0 6px 24px rgba(19, 38, 31, .12);
+  }
+  .bh-info__text { font-size: 15px; line-height: 22px; }
+  .bh-count { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bh-btn, .bh-chip { transition: none; }
+}

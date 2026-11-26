@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="round" data-buttons="solid" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BioInnovate: circulatory system lessons for Grade 12 STEM</title>
+<meta name="description" content="A self-learning module on the heart, blood vessels and blood pressure for General Biology 2, with simulations you can change, online saving and an offline file.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BioInnovate: circulatory system lessons for Grade 12 STEM">
+<meta property="og:description" content="Four reading-first lessons on the heart and circulation, with simulations, for General Biology 2.">
+<meta property="og:image" content="share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#f9fbfa">
+<!-- <link rel="canonical" href="https://[the module's address]/"> -->
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preload" href="fonts/figtree.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<style>
+:root {
+  --p-bg: #f9fbfa; --p-surface: #e2f3ea; --p-ink: #13261f; --p-muted: #5f6f68;
+  --p-accent: #1f6b4f; --p-accent-ink: #f9fbfa; --p-action: #1f6b4f; --p-action-ink: #f9fbfa;
+  --p-inv-bg: #13261f; --p-inv-surface: #21332c; --p-inv-ink: #f9fbfa; --p-inv-muted: #99a39f;
+  --p-inv-accent: #f9fbfa; --p-inv-accent-ink: #13261f; --p-inv-action: #f9fbfa; --p-inv-action-ink: #13261f;
+  --font-display: "Figtree", system-ui, sans-serif;
+  --font-text: "Figtree", system-ui, sans-serif;
+  --display-weight: 500;
+  --display-tracking: -0.025em;
+  --display-tracking-xl: -0.035em;
+}
+</style>
+<link rel="stylesheet" href="assets/ui/base.css">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/sim.css">
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+</head>
+<body>
+<!-- type: software (BioInnovate is a web module; its lessons and simulations are the product's own UI)
+     deal: palette the client's own (brief: Tinig Labs style, start.mjs brand) · type figtree (brief) ·
+     hero split (brief: the reference's words-left, panel-right hero) · nav nav-mega with one small menu ·
+     close close-word · footer footer-dark (dealt again: footer-statement's sage ground is outside the
+     brief's palette) · rhythm space · buttons solid on the round radius: pills, the secondary outlined as in the reference (brief; arrow was dealt) · mark ring · radius round
+     (brief: 24px cards, pill buttons) · grounds none · effect none (brief: calm)
+     moments: none (brief: nothing moves on scroll; the hero's beating heart is the page's one moving piece)
+     screens: hero 1 · inside 1 · lessons 1 · use 2 · closing 1 -->
+
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="nav__logo" href="#top"><span class="mark" data-mark="ring" aria-hidden="true"></span>BioInnovate</a>
+    <nav class="nav__links" aria-label="Main">
+      <div class="nav__item">
+        <a class="nav__link" href="#lessons">Lessons <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <div class="menu-col span-3">
+              <p class="t-label">Sessions 1 to 4</p>
+              <a href="lesson-1.html">The Heart: A Double Pump<span>Chambers, valves, one beat</span></a>
+              <a href="lesson-2.html">Blood Vessels and Blood Flow<span>Pressure, speed, resistance</span></a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">Sessions 5 to 8</p>
+              <a href="lesson-3.html">Two Circuits, One Loop<span>The lungs, the body, real color</span></a>
+              <a href="lesson-4.html">Blood Pressure and Its Control<span>Readings and how they change</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="glossary.html">Glossary</a></div>
+      <div class="nav__item"><a class="nav__link" href="progress.html">Progress</a></div>
+      <div class="nav__item"><a class="nav__link" href="teacher.html">Teachers</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary" href="lesson-1.html">Start Lesson 1</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero hero--split" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text grid hero__grid">
+      <div class="hero__text span-5">
+        <p class="hero__kicker"><span class="dot" aria-hidden="true"></span>General Biology 2 · 8 class sessions</p>
+        <h1 id="hero-h">The circulatory system in four lessons</h1>
+        <p class="hero__lead">BioInnovate is a self-learning module for Grade 12 STEM. Read each lesson, make a prediction, then test it in a simulation like this beating heart.</p>
+        <div class="btn-row"><a class="btn btn--primary" href="lesson-1.html">Start Lesson 1</a><a class="btn btn--secondary" href="#lessons">See the four lessons</a></div>
+      </div>
+      <div class="hero__media hero__sim span-6 start-7" data-enter-media>
+        <div id="hero-heart" class="ui ui-sim"></div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section" id="inside" aria-labelledby="inside-h">
+    <div class="wrap">
+      <div class="grid">
+        <h2 id="inside-h" class="span-5">Nine parts in every lesson</h2>
+        <p class="span-6 start-7">Each lesson follows the parts of a DepEd self-learning module: targets, a pre-check, a review, readings with a quick check after each, practice with a simulation, a summary and a self-check.</p>
+      </div>
+      <div class="ui app fill" role="img" aria-label="Lesson 1 open on its fifth part, What Is It: the nine parts listed beside the second reading, with a glossary note open and a quick check below">
+        <div class="app__pane app__pane--list"><div class="ui ui-parts">
+          <div class="lw-bar"><span class="lw-bar__title">Lesson 1 · The Heart: A Double Pump</span><span class="lw-bar__meta">Session 1</span></div>
+          <div class="lw-list">
+            <div class="lw-row" data-state="done"><span class="lw-row__n">1</span><span class="lw-row__name">What I Need to Know<span class="lw-row__sub">Five learning targets</span></span><span class="lw-chip">Done</span></div>
+            <div class="lw-row" data-state="done"><span class="lw-row__n">2</span><span class="lw-row__name">What I Know<span class="lw-row__sub">Pre-check, five questions</span></span><span class="lw-chip">Done</span></div>
+            <div class="lw-row" data-state="done"><span class="lw-row__n">3</span><span class="lw-row__name">What’s In<span class="lw-row__sub">Review: what blood carries</span></span><span class="lw-chip">Done</span></div>
+            <div class="lw-row" data-state="done"><span class="lw-row__n">4</span><span class="lw-row__name">What’s New<span class="lw-row__sub">Predict before you read</span></span><span class="lw-chip">Done</span></div>
+            <div class="lw-row" data-state="now"><span class="lw-row__n">5</span><span class="lw-row__name">What Is It<span class="lw-row__sub">Five readings</span></span><span class="lw-chip">Reading 2</span></div>
+            <div class="lw-row"><span class="lw-row__n">6</span><span class="lw-row__name">What’s More<span class="lw-row__sub">Practice and the heart lab</span></span></div>
+            <div class="lw-row"><span class="lw-row__n">7</span><span class="lw-row__name">What I Have Learned<span class="lw-row__sub">Summary and think again</span></span></div>
+            <div class="lw-row"><span class="lw-row__n">8</span><span class="lw-row__name">What I Can Do<span class="lw-row__sub">Your own heart rate</span></span></div>
+            <div class="lw-row"><span class="lw-row__n">9</span><span class="lw-row__name">Assessment<span class="lw-row__sub">Self-check</span></span></div>
+          </div>
+        </div></div>
+        <div class="app__pane app__pane--open">
+          <div class="ui ui-reading lw-open">
+            <div class="lw-open__label">What Is It · Reading 2 of 5 <span class="lw-open__dots"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></div>
+            <div class="lw-open__title">Why the walls are not equally thick</div>
+            <p>Each chamber’s wall is as thick as its job needs. The atria push blood only a short way, so their walls are thin. The right <span class="lw-term">ventricle</span> sends blood to the lungs, which are close by.</p>
+            <div class="lw-pop"><b>ventricle</b> A lower chamber of the heart. It pumps blood out of the heart.</div>
+            <p class="lw-p2">The left ventricle sends blood to the whole body. It has the thickest muscle and makes the highest pressure.</p>
+            <div class="lw-check">
+              <div class="lw-check__q">Quick check: which chamber has the thickest wall?</div>
+              <div class="lw-opt"><i></i>The right atrium</div>
+              <div class="lw-opt"><i></i>The left ventricle</div>
+              <div class="lw-opt"><i></i>The right ventricle</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="lessons" aria-labelledby="lessons-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="lessons-h">The four lessons. <span class="muted desk">Two one-hour sessions each.</span></h2>
+      </div>
+      <ol class="grid path fill">
+        <li class="path__step span-3 m-zoom" data-state="now">
+          <p class="path__state"><span class="path__chip">Start here</span><span>Sessions 1 and 2</span></p>
+          <h3>The Heart: A Double Pump</h3>
+          <ul class="path__sims"><li>Beating heart</li><li>Label the heart</li><li>Cardiac cycle</li><li>Cardiac output</li></ul>
+          <div class="path__pic"><img src="img/l1.svg" alt="A heart cut open: a blue right side and a red left side, two pumps side by side" width="320" height="200" loading="lazy"></div>
+          <a class="link" href="lesson-1.html">Open Lesson 1</a>
+        </li>
+        <li class="path__step span-3 m-zoom" data-state="next">
+          <p class="path__state"><span>Sessions 3 and 4</span></p>
+          <h3>Blood Vessels and Blood Flow</h3>
+          <ul class="path__sims"><li>Along the vessels</li><li>Flow and radius</li><li>Muscle pump</li></ul>
+          <div class="path__pic"><img src="img/l2.svg" alt="Three blood vessels cut across: an artery, a vein and a capillary" width="320" height="200" loading="lazy"></div>
+          <a class="link" href="lesson-2.html">Open Lesson 2</a>
+        </li>
+        <li class="path__step span-3 m-zoom" data-state="next">
+          <p class="path__state"><span>Sessions 5 and 6</span></p>
+          <h3>Two Circuits, One Loop</h3>
+          <ul class="path__sims"><li>Follow a blood cell</li><li>Pick the right model</li></ul>
+          <div class="path__pic"><img src="img/l3.svg" alt="Blood’s double loop: heart to lungs and back, then heart to body and back" width="320" height="200" loading="lazy"></div>
+          <a class="link" href="lesson-3.html">Open Lesson 3</a>
+        </li>
+        <li class="path__step span-3 m-zoom" data-state="next">
+          <p class="path__state"><span>Sessions 7 and 8</span></p>
+          <h3>Blood Pressure and Its Control</h3>
+          <ul class="path__sims"><li>Take a reading</li><li>Blood Pressure Lab</li><li>Baroreceptor reflex</li></ul>
+          <div class="path__pic"><img src="img/l4.svg" alt="A blood pressure gauge joined by a tube to a squeeze bulb" width="320" height="200" loading="lazy"></div>
+          <a class="link" href="lesson-4.html">Open Lesson 4</a>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section g2 g2m" id="use" aria-labelledby="use-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <h2 id="use-h">BioInnovate online, offline and on paper. <span class="muted desk">Your work is kept either way.</span></h2>
+          <p><a class="link" href="BioInnovate.html" download>Get the offline file</a></p>
+        </div>
+        <div class="grid">
+          <article class="card card--row card--open span-6">
+            <h3>Saves your lesson progress for your teacher</h3>
+            <p>Sign in with your name, section and a 4-digit PIN. <span class="desk">Your progress saves to your teacher’s Google Sheet as you work.</span></p>
+            <div class="panel"><div class="stage stage--fade-b"><div class="at-rise fit to-edge" style="--fit-max:360px;--ax:max(24px, 50% - 180px);--ay:56px;--ay-sm:24px">
+              <div class="ui ui-mini mini" role="img" aria-label="A progress card: whole module 38 percent, Lesson 1 done, Lesson 2 half done, saved online">
+                <div class="mini__label"><span>Whole module</span><span>Saved online</span></div>
+                <div class="mini__big">38%</div>
+                <div class="mini__bar"><i style="width:38%"></i></div>
+                <div class="mini__rows">
+                  <div class="mini__row"><span>Lesson 1</span><span class="mini__bar"><i style="width:100%"></i></span><span>100%</span></div>
+                  <div class="mini__row"><span>Lesson 2</span><span class="mini__bar"><i style="width:52%"></i></span><span>52%</span></div>
+                  <div class="mini__row"><span>Lesson 3</span><span class="mini__bar"><i style="width:0%"></i></span><span>0%</span></div>
+                  <div class="mini__row"><span>Lesson 4</span><span class="mini__bar"><i style="width:0%"></i></span><span>0%</span></div>
+                </div>
+                <div class="mini__ok">Meets 75%: not yet</div>
+              </div>
+            </div></div></div>
+          </article>
+          <article class="card card--row card--open span-6">
+            <h3>Works without internet</h3>
+            <p>Download one file and open it in any browser, even with no signal. <span class="desk">Your progress stays on that phone or computer.</span></p>
+            <div class="panel"><div class="stage stage--fade-b"><div class="at-rise fit to-edge" style="--fit-max:360px;--ax:max(24px, 50% - 180px);--ay:56px;--ay-sm:24px">
+              <div class="ui ui-mini mini" role="img" aria-label="A download card for the one-file offline version of BioInnovate and what it holds">
+                <div class="mini-file">
+                  <span class="mini-file__ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8 4 12l4 4M16 8l4 4-4 4" fill="none" stroke="#1f6b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span><span class="mini-file__name">BioInnovate.html</span><span class="mini-file__sub">One file · opens in any browser</span></span>
+                </div>
+                <div class="mini-file__btn">Download</div>
+                <div class="mini-file__list"><span>Lessons 1 to 4</span><span>All 11 simulations</span><span>Glossary</span><span>Teacher’s guide</span></div>
+              </div>
+            </div></div></div>
+          </article>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="card card--row card--open span-6">
+          <h3>Shows each lesson on the projector</h3>
+          <p>Presentation mode enlarges the lesson for the whole class. <span class="desk">Move from part to part with the arrow keys.</span></p>
+          <div class="panel"><div class="stage stage--fade-b"><div class="at-rise fit to-edge" style="--fit-max:420px;--ax:max(24px, 50% - 210px);--ay:56px;--ay-sm:24px">
+            <div class="ui ui-mini mini-slide" role="img" aria-label="A lesson part shown large on a projector in presentation mode">
+              <span class="mini-slide__k">Lesson 1 · What Is It · Reading 2</span>
+              <span class="mini-slide__t">Why the walls are not equally thick</span>
+              <span class="mini-slide__p">The left ventricle sends blood to the whole body, so it has the thickest muscle.</span>
+              <span class="mini-slide__keys" aria-hidden="true"><i>←</i><i>→</i></span>
+            </div>
+          </div></div></div>
+        </article>
+        <article class="card card--row card--open span-6">
+          <h3>Prints the lessons as a workbook</h3>
+          <p>Print the lessons or save them as a PDF. <span class="desk">Each simulation prints as a figure with its questions.</span></p>
+          <div class="panel"><div class="stage stage--fade-b"><div class="at-rise fit to-edge" style="--fit-max:260px;--ax:max(24px, 50% - 130px);--ay:48px;--ay-sm:24px">
+            <div class="ui ui-mini mini-page" role="img" aria-label="A printed workbook page with a title, text, a figure and question lines">
+              <i class="t"></i><i></i><i></i><i class="s"></i>
+              <span class="fig"><svg viewBox="0 0 60 40" aria-hidden="true"><path d="M18 10c-7 1-9 9-6 15 3 6 10 10 18 12 8-3 14-8 14-16 0-8-6-12-12-10-3 1-5 3-6 5-2-4-5-7-8-6z" fill="#e69b8b"/><path d="M17 15c-1 6 2 12 9 16 2-5 2-11 1-16-3-2-7-2-10 0z" fill="#3767b3"/><path d="M31 15c0 6 1 12 3 16 6-3 9-8 8-14-2-4-8-4-11-2z" fill="#d23a3f"/></svg></span>
+              <i></i><i class="s"></i><i></i><i></i><i class="s"></i>
+            </div>
+          </div></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer closing footer--dark ground-inverse g2m" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--word">
+      <div class="section-head--split">
+        <div><h2 id="close-h">Start with the heart</h2><p class="t-lead">Lesson 1 takes two one-hour sessions, in class or on your own.</p></div>
+        <a class="btn btn--primary" href="lesson-1.html">Start Lesson 1</a>
+      </div>
+      <p class="close__word" aria-hidden="true">BioInnovate</p>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <p class="footer__lede">A self-learning module by Cristina M. Sabal, Tarlac Agricultural University, for Victoria National High School.</p>
+        </div>
+        <div class="span-2 footer__col"><h3>Lessons</h3><ul><li><a href="lesson-1.html">Lesson 1</a></li><li><a href="lesson-2.html">Lesson 2</a></li><li><a href="lesson-3.html">Lesson 3</a></li><li><a href="lesson-4.html">Lesson 4</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Parts</h3><ul><li><a href="#inside">The nine parts</a></li><li><a href="glossary.html">Glossary</a></li><li><a href="progress.html">My progress</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Offline</h3><ul><li><a href="BioInnovate.html" download>Offline file</a></li><li><a href="print.html">Print version</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>About</h3><ul><li><a href="teacher.html">Teacher’s guide</a></li><li><a href="references.html">References</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 Cristina M. Sabal</span>
+        <div class="socials"></div>
+        <a class="credits" href="references.html">Science content adapted from OpenStax, CC BY 4.0</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="assets/layout/layout.js"></script>
+<script src="js/heart.js"></script>
+<script src="js/site.js"></script>
+<script>BioHeart.mount(document.getElementById('hero-heart'), { mode: 'hero' });</script>
+</body>
+</html>

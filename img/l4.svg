@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-label="A blood pressure gauge with its needle near the top of the dial, joined by a tube to a squeeze bulb">
+<defs>
+<radialGradient id="l4z" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#dfe7e3"/><stop offset="1" stop-color="#9fb0a8"/></radialGradient>
+<radialGradient id="l4d" cx="45%" cy="40%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eef3f0"/></radialGradient>
+<radialGradient id="l4b" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#4a6158"/><stop offset=".6" stop-color="#22362e"/><stop offset="1" stop-color="#0f1c17"/></radialGradient>
+<radialGradient id="l4f"><stop offset="0" stop-color="#13261f" stop-opacity=".18"/><stop offset="1" stop-color="#13261f" stop-opacity="0"/></radialGradient>
+</defs>
+<ellipse cx="160" cy="188" rx="118" ry="8" fill="url(#l4f)"/>
+<path d="M128 166 C134 186 176 190 206 176 C224 168 232 158 240 148" fill="none" stroke="#1d2f28" stroke-width="7" stroke-linecap="round"/>
+<path d="M128 166 C134 186 176 190 206 176 C224 168 232 158 240 148" fill="none" stroke="#3d5249" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="262" cy="122" rx="30" ry="40" fill="url(#l4b)" transform="rotate(-28 262 122)"/>
+<rect x="236" y="140" width="14" height="18" rx="4" fill="#9fb0a8" transform="rotate(-28 243 149)"/>
+<circle cx="128" cy="98" r="72" fill="url(#l4z)"/>
+<circle cx="128" cy="98" r="61" fill="url(#l4d)" stroke="#c7d3cd"/>
+<g stroke="#13261f" stroke-linecap="round">
+<path d="M128 98 m-46 26 l-7 4" stroke-width="2.5"/><path d="M128 98 m-52 0 l-8 0" stroke-width="2.5"/><path d="M128 98 m-46 -26 l-7 -4" stroke-width="2.5"/>
+<path d="M128 98 m-26 -46 l-4 -7" stroke-width="2.5"/><path d="M128 98 m0 -52 l0 -8" stroke-width="2.5"/><path d="M128 98 m26 -46 l4 -7" stroke-width="2.5"/>
+<path d="M128 98 m46 -26 l7 -4" stroke-width="2.5"/><path d="M128 98 m52 0 l8 0" stroke-width="2.5"/><path d="M128 98 m46 26 l7 4" stroke-width="2.5"/>
+</g>
+<path d="M128 98 L152 52" stroke="#d23a3f" stroke-width="4" stroke-linecap="round"/>
+<circle cx="128" cy="98" r="8" fill="#13261f"/>
+<circle cx="126" cy="96" r="2.5" fill="#fff" opacity=".5"/>
+<path d="M82 62 C94 44 112 36 132 36" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+</svg>
