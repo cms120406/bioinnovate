@@ -28,12 +28,12 @@ for name in PAGES:
     h = re.sub(r'<link rel="preload"[^>]*>\s*', '', h)
     h = re.sub(r'<meta property="og:image"[^>]*>\s*', '', h)
     for href in re.findall(r'<link rel="stylesheet" href="([^"]+)">', h):
-        css = read(href)
+        css = read(href.split('?')[0])
         if 'url("../fonts/figtree.woff")' in css:
             css = css.replace('url("../fonts/figtree.woff")', 'url("%s")' % data_url('fonts/figtree.woff'))
         assets[href] = css
     for src in re.findall(r'<script(?: type="module")? src="([^"]+)"></script>', h):
-        assets[src] = read(src).replace('</script', '<\\/script')  # an inline script must not contain its own end tag
+        assets[src] = read(src.split('?')[0]).replace('</script', '<\\/script')  # an inline script must not contain its own end tag
     for src in set(re.findall(r'src="(img/[^"]+)"', h)):
         h = h.replace('src="%s"' % src, 'src="%s"' % data_url(src))
     h = h.replace('href="favicon.svg"', 'href="%s"' % data_url('favicon.svg'))
